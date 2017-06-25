@@ -97,18 +97,22 @@ class VehicleTracking(object):
         heatmap_vis = (heatmap * 3).astype(np.uint8)
         thresholded_heatmap_vs = (thresholded_heatmap * 3).astype(np.uint8)
         combined_heatmap_vis = (combined_heatmap * 3).astype(np.uint8)
+        labeled_heatmap_vis = (labeled_heatmap * 30).astype(np.uint8)
         top = np.hstack([
             cv2.resize(car_detections, two_thirds),
             np.vstack([
                 cv2.resize(np.dstack((heatmap_vis,heatmap_vis,heatmap_vis)), one_third),
-                cv2.resize(np.dstack((thresholded_heatmap_vs, thresholded_heatmap_vs, thresholded_heatmap_vs)), one_third)])
+               cv2.resize(np.dstack((combined_heatmap_vis, combined_heatmap_vis, combined_heatmap_vis)), one_third)
+                ])
             ])
         bottom = np.hstack([
             cv2.resize(output_image, one_third),
-            np.zeros((240, 1280- 2*one_third[0], 3), dtype=np.uint8),
-            cv2.resize(np.dstack((combined_heatmap_vis, combined_heatmap_vis, combined_heatmap_vis)), one_third)
+            #np.zeros((240, 1280- 2*one_third[0], 3), dtype=np.uint8),
+            cv2.resize(np.dstack((labeled_heatmap_vis, labeled_heatmap_vis, labeled_heatmap_vis)), (428,240)),
+            cv2.resize(np.dstack((thresholded_heatmap_vs, thresholded_heatmap_vs, thresholded_heatmap_vs)), one_third)
         ])
         res = np.vstack([top, bottom])
+        cv2.imwrite("test.png", cv2.cvtColor(res, cv2.COLOR_RGB2BGR))
         return res
     
     def find_cars(self, img, ystart, ystop, scale):

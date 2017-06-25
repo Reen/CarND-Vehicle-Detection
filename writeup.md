@@ -15,10 +15,10 @@ The goals / steps of this project are the following:
 [image3]: ./sliding_windows1.png
 [image3a]: ./sliding_windows2.png
 [image4]: ./sliding_window_detections.png
-[image5]: ./examples/bboxes_and_heat.png
-[image6]: ./examples/labels_map.png
-[image7]: ./examples/output_bboxes.png
-[video1]: ./project_video.mp4
+[image5]: ./bboxes_and_heat1.png
+[image5a]: ./bboxes_and_heat2.png
+[image5b]: ./bboxes_and_heat3.png
+[video1]: ./project_video_processed.mp4
 
 ## [Rubric](https://review.udacity.com/#!/rubrics/513/view) Points
 ### Here I will consider the rubric points individually and describe how I addressed each point in my implementation.  
@@ -94,16 +94,15 @@ Then I thresholded that map to identify vehicle positions and used `scipy.ndimag
 
 Here's an example result showing the heatmap from a series of frames of video, the result of `scipy.ndimage.measurements.label()` and the bounding boxes then overlaid on the last frame of video:
 
-### Here are six frames and their corresponding heatmaps:
+### Here is the debug view of three consecutive frames:
 
 ![alt text][image5]
 
-### Here is the output of `scipy.ndimage.measurements.label()` on the integrated heatmap from all six frames:
-![alt text][image6]
+![alt text][image5a]
 
-### Here the resulting bounding boxes are drawn onto the last frame in the series:
-![alt text][image7]
-
+![alt text][image5b]
+On the right-hand side, three heatmaps are shown. Top to bottom they show the heatmap of the current frame, the combined heatmap and the thresholded heatmap.
+The bottom left image shows the `car` predictions and the bottom center image shows the labled heatmap. The top left image shows the final bounding boxes.
 
 
 ---
